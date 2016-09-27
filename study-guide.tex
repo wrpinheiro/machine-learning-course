@@ -77,11 +77,8 @@ Remember:
 \item \textbf{Classification}: Discrete-valued output
 \end{itemize}
 
-The Table~\ref{tab:training-set-example} shows a distribution that relates the size of houses in $feet^2$ that maps to their prices in $1000$s of dollars).
-
 \begin{table}[]
 \centering
-\label{tab:training-set-example}
 \begin{tabular}{l|r}
 \textbf{Size(m2)} & \textbf{Price in 1000's} \\\hline
 2104     & 460 \\
@@ -90,7 +87,10 @@ The Table~\ref{tab:training-set-example} shows a distribution that relates the s
 852      & 178
 \end{tabular}
 \caption{Training set}
+\label{tab:training-set-example}
 \end{table}
+
+Table~\ref{tab:training-set-example} shows a distribution that relates the size of houses in $feet^2$ that maps to their prices in $1000$s of dollars).
 
 Based on the training set we can define:
 
@@ -102,7 +102,7 @@ Based on the training set we can define:
 \item $(x^{(i)}, y^{(i)})$\: the $i_{th}$ training example
 \end{itemize}
 
-Let's also define $h$ as the \textbf{hypothesis}. That is, $h$ is a function that maps from $x's$ to a estimated value. In the example of Table~\ref{tab:training-set} \textbf{$h$ is a hypothesis that maps from the size of a house to an estimated price}
+Let's also define $h$ as the \textbf{hypothesis}. That is, $h$ is a function that maps from $x's$ to a estimated value. In the example of Table~\ref{tab:training-set-example} \textbf{$h$ is a hypothesis that maps from the size of a house to an estimated price}
 
 \subsection{How to represent $h$}
 
@@ -153,7 +153,6 @@ Given the following training set\:
 
 \begin{table}[]
 \centering
-\label{tab:cost-function-training-set}
 \begin{tabular}{l|r}
 \textbf{x} & \textbf{y} \\\hline
 1     & 2 \\
@@ -161,6 +160,7 @@ Given the following training set\:
 3     & 3
 \end{tabular}
 \caption{Cost function training set}
+\label{tab:cost-function-training-set}
 \end{table}
 
 Based on training set in Table~\ref{tab:cost-function-training-set}, we can use a $\theta_1 = 1$, then\:
