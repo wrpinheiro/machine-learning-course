@@ -1,0 +1,290 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\setlength{\parindent}{0cm}
+
+\title{Machine Learning Course}
+\author{Wellington Ricardo Pinheiro}
+
+\begin{document}
+\maketitle
+
+\section{Intro}
+
+Machine Learning is the science of getting computers to learn, without being explicitly programmed.
+
+\medskip
+
+There are two approaches to work with ML:
+
+\begin{itemize}
+\item Supervised Learning: where a set of right answers are given is given to the algorithm
+\item Unsupervised Learning: where a data set is given and the algorithm finds some structure among the data
+\end{itemize}
+
+\subsection{Supervised Learning}
+
+When we have a data set with right answers and we want to know the answer for some known property of this data set. For example a \textbf{House Price Prediction} or a \textbf{Weather Prediction} based on past information.
+
+\medskip
+
+There can be two approaches to solve a problem using a Supervised Learning algorithm:
+
+\begin{itemize}
+\item \textbf{Regression} problem: predict continuous valued output
+\item \textbf{Classification}: Discrete valued output. Work with discrete f(x) values (x can be continuous)
+\end{itemize}
+
+A Supervised Learning Algorithm can be seen as a function $f$ such as:
+
+\[f(x_1, x_2, ..., x_k) = y\]
+
+Where:
+
+\begin{itemize}
+\item $x_i$, para $1 \le i \le k$, is a \textbf{feature}
+\item $y$ is the valued output
+\end{itemize}
+
+\subsection{Unsupervised Learning Algorithm}
+
+When we have a data set without answers and we want to discover some structure among the items. Each structural set found is named \textbf{cluster}. The Unsupervised Learning Algorithm is also known as a \textbf{clustering algorithm}.
+
+\section{Linear Regression}
+
+Given a data set with right answers, a linear regression is a way to approximate a result based on a straight line that best fits the data set. It's basically a regression problem.
+
+\medskip
+
+Remember:
+
+\begin{itemize}
+\item \textbf{Supervised Learning}: given the "right answer" for each example in the data
+\item \textbf{Regression Problem}: Predict real-valued output
+\item \textbf{Classification}: Discrete-valued output
+\end{itemize}
+
+The Table~\ref{tab:training-set-example} shows a distribution that relates the size of houses in $feet^2$ that maps to their prices in $1000$s of dollars).
+
+\begin{table}[]
+\centering
+\label{tab:training-set-example}
+\begin{tabular}{l|r}
+\textbf{Size(m2)} & \textbf{Price in 1000's} \\\hline
+2104     & 460 \\
+1416     & 232 \\
+1534     & 315 \\
+852      & 178
+\end{tabular}
+\caption{Training set}
+\end{table}
+
+Based on the training set we can define:
+
+\begin{itemize}
+\item $m$\: number of training examples
+\item $x$\: input variable or feature
+\item $y$\: output variable or target variable
+\item $(x,y)$\: one training example
+\item $(x^{(i)}, y^{(i)})$\: the $i_{th}$ training example
+\end{itemize}
+
+Let's also define $h$ as the \textbf{hypothesis}. That is, $h$ is a function that maps from $x's$ to a estimated value. In the example of Table~\ref{tab:training-set} \textbf{$h$ is a hypothesis that maps from the size of a house to an estimated price}
+
+\subsection{How to represent $h$}
+
+$h$ can be represented as a linear polymon in the form:
+\[h_\theta(x) = \theta_0 + \theta_1 * x\]
+
+$h(x)$ is a shorthand for $h_\theta(x)$.
+
+\medskip
+
+This approach to solve problem is known as \textbf{Linear regression with one variable} or \textbf{univariate linear regression}.
+
+\section{Cost Function}
+
+Hypothesis: $h_\theta(x) = \theta_0 + \theta_1*x$, where:
+
+\begin{itemize}
+\item{$\theta_i's$: parameters}
+\end{itemize}
+
+\paragraph How to choose $\theta_i's$?
+
+\medskip
+
+Choose $\theta_0$, $\theta_1$ so that $h_\theta(x)$ is close to $y$ for our training examples $(x,y)$. But how to do that? We have to minimize $\theta_0$, $\theta_1$ so that
+
+\[\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})^2\]
+
+$h_\theta(x^{(i)}) = \theta_0 + \theta_1x^{(i)}$
+
+\[J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^m(h_\theta x^{(i)}-y^{(i)})^2\]
+
+minimize $J(\theta_0, \theta_1)$
+
+$J(\theta_0, \theta_1)$ is the cost function also called Squared error function
+
+\section{Cost Function Intuition}
+\begin{itemize}
+\item Hypothesis\: $h_\theta(x) = \theta_0 + \theta_1 * x$
+\item Parameters\: $\theta_0, \theta_1$
+\item Cost function\: $J(\theta_0,\theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2$
+\item Goal\: minimize $J(\theta_0, \theta_1)$
+\end{itemize}
+
+Let's start with a simplified version of $h_\theta = \theta_1 * x$. Then we're going to minimize $J(\theta_1)$.
+
+Given the following training set\:
+
+\begin{table}[]
+\centering
+\label{tab:cost-function-training-set}
+\begin{tabular}{l|r}
+\textbf{x} & \textbf{y} \\\hline
+1     & 2 \\
+2     & 2 \\
+3     & 3
+\end{tabular}
+\caption{Cost function training set}
+\end{table}
+
+Based on training set in Table~\ref{tab:cost-function-training-set}, we can use a $\theta_1 = 1$, then\:
+
+$$
+J(\theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2
+= \frac{1}{2m}\sum_{i=1}^{m}(\theta_1 * x^{(i)} - y^{(i)})^2 = \frac{1}{2m}(0^2 + 0^2 + 0^2) = 0^2$$
+
+\section{Gradient Descent}
+
+Have some function $J(\theta_0,\theta_1)$
+Want to min $J(\theta_0,\theta_1)$
+
+\textbf{Outline}
+\begin{itemize}
+\item Start with some $\theta_0, \theta_1$
+\item Keep changing $\theta_0, \theta_1$ to reduce $J(\theta_0,\theta_1)$ until we hopefully end up at minimum
+\end{itemize}
+
+\subsection{Gradient Descent Algorithm}
+
+repeat until convergence (for $j=0$ and $j=1$ - simultaneously update $\theta_0$ and $\theta_1$) \{
+$$
+\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1)
+$$
+\}
+
+\medskip
+
+where:
+
+\begin{itemize}
+\item $\alpha$\: is the learning rate. The bigger it is the more aggressive the approximation occurs.
+\end{itemize}
+
+Simultaneous update of $\theta_0$ and $\theta_1$ means:
+
+\begin{itemize}
+\item $temp_0 := \theta_0 - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1)$
+\item $temp_0 := \theta_1 - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1)$
+\item $\theta_0 := temp0$
+\item $\theta_1 := temp1$
+\end{itemize}
+
+\subsection{Gradient Descent Intuition}
+
+Remember that:
+
+\medskip
+
+repeat until convergence (for $j=0$ and $j=1$ - simultaneously update $\theta_0$ and $\theta_1$) \{
+$$
+\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1)
+$$
+\}
+
+Where\:
+
+\begin{itemize}
+\item $\alpha$ is the learning rate
+\item $\frac{\partial}{\partial \theta_j}J(\theta_0,\theta_1)$ is the derivative term
+\end{itemize}
+
+Again, let's simplify and minimize $J(\theta_1)$, with $\theta_1 \in \rm I\!R$
+
+If $\alpha$ is too small, gradient descent can be slow.  But if $\alpha$ is too large, the gradient descent can overshoot the minimum. It may fail to converge, or even diverge.
+
+Note that as each iteration of the algorithm approaches  the local minimum, the derivative term becomes smaller. This way it's not needed to update $\alpha$ value over time.
+
+\section{Gradient Descent for Linear Regression}
+
+Idea\: apply gradient descent to the cost function $J(\theta_0, \theta_1)$. Then:
+
+$$
+\frac{\partial}{\partial \theta_j}J(\theta_0,\theta_1) \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2
+$$
+
+Dividing in cases for $j = 1$ and $j = 2$:
+
+\begin{itemize}
+\item $j = 0: \frac{\partial}{\partial \theta_0}J(\theta_0,\theta_1) = \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)})$
+\item $j = 1: \frac{\partial}{\partial \theta_1}J(\theta_0,\theta_1) = \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)}) x^{(i)}$
+\end{itemize}
+
+\medskip
+
+repeat until convergence \{
+$$
+\theta_0 := \theta_0 - \alpha \frac{\partial}{\partial \theta_0}J(\theta_0,\theta_1) = \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)})
+$$
+$$
+\theta_1 := \theta_1 - \alpha \frac{\partial}{\partial \theta_1}J(\theta_0,\theta_1) = \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)}) x^{(i)}
+$$
+\}
+
+About the convergence of $J(\theta_0,\theta_1)$ it's important to say that $J$ is a \textbf{convex function}, a bowl shaped function that has a global optimum point.
+
+\subsection{Batch Gradient Descent}
+
+Each step of gradient descent uses all the training examples this is why we call it \textbf{Batch}. There are some cases which not all training examples are needed.
+
+\section{Linear Algebra Review}
+
+
+\section{Quiz Tips}
+
+\subsection{Week 1 - Introduction}
+
+\begin{itemize}
+\item In the first question is important to observe that experience E \textbf{is the data set}, the information the algorithm uses to learn. The task T \textbf{is the action performed by the algorithm}, i.e., the task of predicting the Weather, or a Disease, or a House Price. Each of these predictions is based on features. The performance P \textbf{is the output given by the algorithm}.
+\item For questions two and three remember that when the algorithm output domain is a limited discrete set then the problem can be a classification problem, otherwise it's a regression problem. Be aware when the output domain set in discrete but large, that in these cases the output domain can be seen as a real domain and not discrete.
+\item In question four it's important to note that when clusters are mentioned or characteristics that are not previously known then it's talking about unsupervised learning.
+\end{itemize}
+
+\subsection{Week 1 - Linear Regression with One Variable}
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
+\section{References}
+
+\begin{itemize}
+\item Wiki for Week 1\: \url{
+https://share.coursera.org/wiki/index.php/ML:Main\#Week\_1}
+\end{itemize}
+\end{document}
