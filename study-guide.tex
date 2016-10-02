@@ -14,6 +14,9 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
+\usepackage{float}
+\restylefloat{table}
+
 \setlength{\parindent}{0cm}
 
 \title{Machine Learning Course}
@@ -370,7 +373,6 @@ Summary about learning rate:
 \item if $\alpha$ is too large $J(\theta)$ may not decrease on every iteration; may not converge
 \end{itemize}
 
-
 \subsection{Features and Polynomial Regression}
 
 House price prediction
@@ -387,7 +389,54 @@ For example, when dealing with a feature $size$ related to the size of a house, 
 
 Other models than can also be used, for example, $h_\theta(x) = \theta_0 + \theta_1 size + \theta_2 \sqrt{size}$.
 
+\section{Normal Equation}
 
+Normal equation is a method to solve $\theta$ analytically.
+
+For example, to find a local minimum for a function $J(\theta) = a\theta^2 + b\theta + c$ is sufficient to find a value for $\theta$ so that $\frac{d}{d\theta}J(\theta) = 0$.
+
+In a linear regression problem we have $J(\theta_0, \theta_1, \cdots, \theta_n)$ then we have to find $\theta$ set so that $\frac{\partial}{\partial\theta_j}J(\theta) = 0$ for every $j$.
+
+As example, suppose data in Table~\ref{tab:multiple-features-example}. Let's add a column on left representing a $x_0$ feature with all values 1. Then we represent this table as a matrix $X$:
+
+\begin{center}
+\begin{tabular}{cc}
+$X = \left[ \begin{array}{ccccc}
+1 & 2104 & 5 & 1 & 45 \\
+1 & 1416 & 3 & 2 & 40 \\
+1 & 1534 & 3 & 2 & 30 \\
+1 & 852  & 2 & 1 & 36
+\end{array} \right]$ &
+$y = \left[ \begin{array}{c}
+460 \\ 232 \\ 315 \\  178 \end{array} \right]$
+\end{tabular}
+\end{center}
+
+Based on $X$ and $y$ we can solve $\theta$ as:
+
+$$
+\theta = (X^T X)^{-1} X^T y
+$$
+
+Features don't need to be scaled when Normal Equation is used.
+
+\subsection{When use gradient descent or normal equation}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Gradient Descent} & \textbf{Normal Equation} \\
+\hline
+Need to choose $\alpha$ & Don't need to choose $\alpha$ \\
+Needs many iterations & Solve analytically (no iterations) \\
+Works well even when $n$ is large & Need to compute $(X^T X)^{-1}$ (can be slow for $n\times n$ matrices) \\
+& Slow if $n$ is very large (consider large $> 10^4$) \\
+\hline
+\end{tabular}
+\caption{Gradient Descent vs. Normal Equation}
+\label{tab:gradient-descent-normal-equation}
+\end{table}
 
 \section{Quiz Tips}
 
