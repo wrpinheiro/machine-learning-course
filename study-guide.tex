@@ -95,11 +95,11 @@ Table~\ref{tab:training-set-example} shows a distribution that relates the size 
 Based on the training set we can define:
 
 \begin{itemize}
-\item $m$\: number of training examples
-\item $x$\: input variable or feature
-\item $y$\: output variable or target variable
-\item $(x,y)$\: one training example
-\item $(x^{(i)}, y^{(i)})$\: the $i_{th}$ training example
+\item $m$: number of training examples
+\item $x$: input variable or feature
+\item $y$: output variable or target variable
+\item $(x,y)$: one training example
+\item $(x^{(i)}, y^{(i)})$: the $i_{th}$ training example
 \end{itemize}
 
 Let's also define $h$ as the \textbf{hypothesis}. That is, $h$ is a function that maps from $x's$ to a estimated value. In the example of Table~\ref{tab:training-set-example} \textbf{$h$ is a hypothesis that maps from the size of a house to an estimated price}
@@ -117,39 +117,31 @@ This approach to solve problem is known as \textbf{Linear regression with one va
 
 \section{Cost Function}
 
-Hypothesis: $h_\theta(x) = \theta_0 + \theta_1*x$, where:
+Hypothesis: $h_\theta(x) = \theta_0 + \theta_1 x$, where:
 
 \begin{itemize}
 \item{$\theta_i's$: parameters}
 \end{itemize}
 
-\paragraph How to choose $\theta_i's$?
+How to choose $\theta_i's$?
 
 \medskip
 
-Choose $\theta_0$, $\theta_1$ so that $h_\theta(x)$ is close to $y$ for our training examples $(x,y)$. But how to do that? We have to minimize $\theta_0$, $\theta_1$ so that
-
-\[\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})^2\]
-
-$h_\theta(x^{(i)}) = \theta_0 + \theta_1x^{(i)}$
+Choose $\theta_0$, $\theta_1$ so that $h_\theta(x)$ is close to $y$ for our training examples $(x,y)$. To do this we define a cost function $J(\theta_0, \theta_1)$, also known as \textbf{Squared Error Function}, as:
 
 \[J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^m(h_\theta x^{(i)}-y^{(i)})^2\]
 
-minimize $J(\theta_0, \theta_1)$
-
-$J(\theta_0, \theta_1)$ is the cost function also called Squared error function
+Minimizing $J(\theta_0, \theta_1)$ will give the $\theta_0$ and $\theta_1$ that makes $h_\theta(x)$ close to training examples.
 
 \section{Cost Function Intuition}
 \begin{itemize}
-\item Hypothesis\: $h_\theta(x) = \theta_0 + \theta_1 * x$
-\item Parameters\: $\theta_0, \theta_1$
-\item Cost function\: $J(\theta_0,\theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2$
-\item Goal\: minimize $J(\theta_0, \theta_1)$
+\item Hypothesis: $h_\theta(x) = \theta_0 + \theta_1 * x$
+\item Parameters: $\theta_0, \theta_1$
+\item Cost function: $J(\theta_0,\theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2$
+\item Goal: minimize $J(\theta_0, \theta_1)$
 \end{itemize}
 
 Let's start with a simplified version of $h_\theta = \theta_1 * x$. Then we're going to minimize $J(\theta_1)$.
-
-Given the following training set\:
 
 \begin{table}[]
 \centering
@@ -163,7 +155,7 @@ Given the following training set\:
 \label{tab:cost-function-training-set}
 \end{table}
 
-Based on training set in Table~\ref{tab:cost-function-training-set}, we can use a $\theta_1 = 1$, then\:
+Consider the training set presented in Table~\ref{tab:cost-function-training-set}. Based on in, we can use a $\theta_1 = 1$, then:
 
 $$
 J(\theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2
@@ -193,7 +185,7 @@ $$
 where:
 
 \begin{itemize}
-\item $\alpha$\: is the learning rate. The bigger it is the more aggressive the approximation occurs.
+\item $\alpha$: is the learning rate. The bigger it is the more aggressive the approximation occurs.
 \end{itemize}
 
 Simultaneous update of $\theta_0$ and $\theta_1$ means:
@@ -217,7 +209,7 @@ $$
 $$
 \}
 
-Where\:
+Where:
 
 \begin{itemize}
 \item $\alpha$ is the learning rate
@@ -232,7 +224,7 @@ Note that as each iteration of the algorithm approaches  the local minimum, the 
 
 \section{Gradient Descent for Linear Regression}
 
-Idea\: apply gradient descent to the cost function $J(\theta_0, \theta_1)$. Then:
+Idea: apply gradient descent to the cost function $J(\theta_0, \theta_1)$. Then:
 
 $$
 \frac{\partial}{\partial \theta_j}J(\theta_0,\theta_1) \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)}) - y^{(i)})^2
@@ -249,10 +241,10 @@ Dividing in cases for $j = 1$ and $j = 2$:
 
 repeat until convergence \{
 $$
-\theta_0 := \theta_0 - \alpha \frac{\partial}{\partial \theta_0}J(\theta_0,\theta_1) = \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)})
+\theta_0 := \theta_0 - \alpha \frac{\partial}{\partial \theta_0}J(\theta_0,\theta_1) = \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)})
 $$
 $$
-\theta_1 := \theta_1 - \alpha \frac{\partial}{\partial \theta_1}J(\theta_0,\theta_1) = \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)}) x^{(i)}
+\theta_1 := \theta_1 - \alpha \frac{\partial}{\partial \theta_1}J(\theta_0,\theta_1) = \theta_1 - \alpha \frac{1}{m}\sum_{i=1}^m (h_0(x^{(i)}) - y^{(i)}) x^{(i)}
 $$
 \}
 
@@ -262,7 +254,139 @@ About the convergence of $J(\theta_0,\theta_1)$ it's important to say that $J$ i
 
 Each step of gradient descent uses all the training examples this is why we call it \textbf{Batch}. There are some cases which not all training examples are needed.
 
-\section{Linear Algebra Review}
+\section{Liner Regression with Multiple Features}
+
+In previous chapters the linear regression dealt with only one feature. In this chapters is presented how this approach also works with multiple features. Table~\ref{tab:multiple-features-example} shows an example of multiple features that influences the price of a house.
+
+\begin{table}[]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+\textbf{Size(feet$^2$)} & \textbf{Number of bedrooms} & \textbf{Number of floors} & \textbf{Age of home (years)} & \textbf{Price (\$1000\'s)} \\ \hline
+2104 & 5 & 1 & 45 & 460 \\
+1416 & 3 & 2 & 40 & 232 \\
+1534 & 3 & 2 & 30 & 315 \\
+852  & 2 & 1 & 36 & 178
+\end{tabular}
+\caption{Multiple Features (variables)}
+\label{tab:multiple-features-example}
+\end{table}
+
+Let's define:
+
+\begin{itemize}
+  \item n: number of features
+  \item $x^{(i)}$: input (features) of $i^{th}$ training example
+  \item $x_{j}^{(i)}$: value of feature $j$ in $i^{th}$ training example
+\end{itemize}
+
+The hypothesis using multiple features is defined as:
+
+$$
+h_\theta = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n
+$$
+
+Example: $h_\theta = 80 + 0.1 x_1 + 0.01 x_2 + 3 x_3 - 2 x_4$
+
+For convenience we define $x_0 = 1$, so it's possible to rewrite $h_\theta$ as:
+
+$$
+h_\theta = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_n x_n
+$$
+
+$X$ and $\theta$ can be represented as matrices:
+
+\medskip
+
+\begin{center}
+\begin{tabular}{cc}
+$X = \left[ \begin{array}{c}
+x_0 \\ x_1 \\ x_2 \\ \cdots \\ x_n \end{array} \right]$ &
+$\theta = \left[ \begin{array}{c}
+\theta_0 \\ \theta_1 \\ \theta_2 \\ \cdots \\ \theta_n \end{array} \right]$
+\end{tabular}
+\end{center}
+
+Based on the the matrices $X$ and $\theta$ $h_\theta(x)$ can be written as:
+
+\[ h_\theta(x) = \theta^T x \]
+
+\subsection{Gradient Descent for Multiple Variables}
+
+For multiple variables the cost function $J$ is defined as: $J(\theta_0, \theta_1, \cdots, \theta_n) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})^2$
+
+Instead of writing $J(\theta_0, \theta_1, \cdots, \theta_n)$ will be only used $J(\theta)$.
+
+Gradient Descent
+
+repeat (\{
+$$
+\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta)
+$$
+\} (simultaneously update for every $j = 0, 1, \cdots, n$)
+
+Applying the partial derivative
+
+\medskip
+
+repeat (\{
+$$
+\theta_j := \theta_j - \alpha \frac{1}{m}\sum_{i=1}{m}(h_\theta(x^{(i)})-y^{(i)})x_{j}^{(i)}
+$$
+\} (simultaneously update for every $j = 0, 1, \cdots, n$)
+
+\subsection{Feature Scaling}
+
+Make sure features are on similar scale.
+
+Ex: $x_1 = $ size $(0-2000 feet^2)$ and $x_2 = $ number of bedrooms $(1-5)$.
+
+If scales are very different it'll take a long time to gradient descent finds the local optimum. The approach here is to scale the features.
+
+\medskip
+
+Get every feature into approximately a $-1 < x_i < 1$ range by dividing each feature by its maximum value. That is:
+
+\medskip
+
+\begin{center}
+\begin{tabular}{cc}
+$x_1 = \frac{size (feet^2)}{2000}$ &
+$x_2 = \frac{number of bedrooms}{5}$
+\end{tabular}
+\end{center}
+
+\subsection{Mean Normalization}
+
+Replace $x_i$ with $x_i - \mu_i$ to make features have approximately zero mean (do not apply to $x_0 = 1$). Also divide $x_i - \mu_i$ by the max value minus the min value for the feature. The formula is: $$\frac{x_i - \mu_i}{S_i}$$ where $S_i$ is the max $-$ min value for feature $i$.
+
+\subsection{The Learning Rate}
+
+Convergence test: when $J(\theta)$ decreases less than $10^{-3}$ it could be considered that $\theta$ is an answer.
+
+Summary about learning rate:
+
+\begin{itemize}
+\item if $\alpha$ is too slow there will be a slow convergence
+\item if $\alpha$ is too large $J(\theta)$ may not decrease on every iteration; may not converge
+\end{itemize}
+
+
+\subsection{Features and Polynomial Regression}
+
+House price prediction
+
+\[h_\theta(x) = \theta_0 + \theta_1 * frontage + \theta_2 * depth \]
+
+in the previous expression $frontage$ is the like $x_1$ and $depth$ is the $x_2$. In fact, it's possible to create and use other features in the linear regression. For example, a new feature $area = frontage * depth$ can be used and the hypothesis will be $h_\theta(x) = \theta_0 + \theta_1 x$. Sometimes using new feature can lead to better models.
+
+\subsubsection{Polynomial Regression}
+
+Depending on how your data is distributed, other model than linear can fit better. For example, can be used a quadratic distribution with a hypothesis $h_\theta(x) = \theta_0 + \theta_1 x + \theta_2 x^2$ or a cubic $h_\theta(x) = \theta_0 + \theta_1 x + \theta_2 x^2 + \theta_3 x^3$.
+
+For example, when dealing with a feature $size$ related to the size of a house, the hypothesis can be defined as $h_\theta(x) = \theta_0 + \theta_1 (size) + \theta_2 (size)^2 + \theta_3 (size)^3$, then defining $x_1 = size$, $x_2 = (size)^2$ and $x_3 = (size)^3$. Doing this it's possible to use the already known liner regression mechanics for $h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3$. \textbf{A important note} is that in this case feature scaling really matters here.
+
+Other models than can also be used, for example, $h_\theta(x) = \theta_0 + \theta_1 size + \theta_2 \sqrt{size}$.
+
 
 
 \section{Quiz Tips}
@@ -284,7 +408,7 @@ Each step of gradient descent uses all the training examples this is why we call
 \section{References}
 
 \begin{itemize}
-\item Wiki for Week 1\: \url{
+\item Wiki for Week 1: \url{
 https://share.coursera.org/wiki/index.php/ML:Main\#Week\_1}
 \end{itemize}
 \end{document}
