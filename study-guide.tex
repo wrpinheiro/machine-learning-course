@@ -438,6 +438,39 @@ Works well even when $n$ is large & Need to compute $(X^T X)^{-1}$ (can be slow 
 \label{tab:gradient-descent-normal-equation}
 \end{table}
 
+\section{Classification - Logistic Regression}
+
+email: spam / not spam
+online transactions: fraudulent (yes/no)
+tumar: malignat / benignant
+
+$y \in {0, 1}$ where $0$ is negative and $1$ is positive.
+
+\subsection{Hypothesis Representation}
+
+The logistic regression model we want should be $0 < h(\theta) < 1$.
+
+$h(\theta) = g(\theta^T x)$ and $g(z) = \frac{1}{1 + e^{-z}}$ (Sigmoid function or logistic function). Putting the two equations together then we have:
+
+\[h_\theta(x) = \frac{1}{1 + e^{-\theta^T x}}\]
+
+
+Interpretation of Hypothesis Output:
+
+$h_\theta(x)$ = estimated probability that $y = 1$ on input $x$.
+
+Example: if $x = \left[ \begin{array}{c} x_0 \\ x_1 \end{array} \right] =
+\left[ \begin{array}{c} 1 \\ tumorSize \end{array} \right]$
+
+\newline
+
+$h_theta(x) = 0.7$: tell patient that $70\%$ chance of tumor being malignant.
+
+We can also define $h_\theta(x) = P(y=1 | x;\theta)$: probability that $y=1$, given $x$, parameterized by $\theta$.
+
+
+
+
 \section{Quiz Tips}
 
 \subsection{Week 1 - Introduction}
